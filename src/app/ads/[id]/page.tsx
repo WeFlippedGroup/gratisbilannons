@@ -1,3 +1,5 @@
+"use client"
+
 import { MOCK_ADS } from '@/data/mockAds'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
