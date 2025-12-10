@@ -8,14 +8,14 @@ import FilterSidebar from '@/components/FilterSidebar'
 
 // Mock Data moved here for filtering demo
 const MOCK_ADS = [
-    { id: 1, title: "Volvo V60 D4", price: 245000, year: 2020, miles: 4500, fuel: "Diesel", gearbox: "Automat", location: "Stockholm, Solna", brand: "Volvo" },
-    { id: 2, title: "Tesla Model 3", price: 399000, year: 2021, miles: 3200, fuel: "El", gearbox: "Automat", location: "Göteborg, Askim", brand: "Tesla", imageColor: "#d1d1d6" },
-    { id: 3, title: "Volkswagen Golf GTI", price: 189000, year: 2018, miles: 6800, fuel: "Bensin", gearbox: "Manuell", location: "Malmö, Centrum", brand: "Volkswagen", imageColor: "#6e6e73" },
-    { id: 4, title: "Kia Niro EV", price: 310000, year: 2022, miles: 1500, fuel: "El", gearbox: "Automat", location: "Uppsala, Luthagen", brand: "Kia" },
-    { id: 5, title: "Audi A6 Avant", price: 365000, year: 2019, miles: 9000, fuel: "Diesel", gearbox: "Automat", location: "Västerås, Hälla", brand: "Audi" },
-    { id: 6, title: "Tesla Model Y", price: 550000, year: 2023, miles: 1200, fuel: "El", gearbox: "Automat", location: "Stockholm, City", brand: "Tesla" },
-    { id: 7, title: "BMW 320d", price: 295000, year: 2019, miles: 5500, fuel: "Diesel", gearbox: "Automat", location: "Lund, Centrum", brand: "BMW" },
-    { id: 8, title: "Volvo XC60", price: 410000, year: 2021, miles: 4100, fuel: "Hybrid", gearbox: "Automat", location: "Göteborg, Mölndal", brand: "Volvo" },
+    { id: 1, title: "Volvo V60 D4", price: 245000, year: 2020, miles: 4500, fuel: "Diesel", gearbox: "Automat", location: "Stockholm, Solna", brand: "Volvo", bodyType: "Kombi" },
+    { id: 2, title: "Tesla Model 3", price: 399000, year: 2021, miles: 3200, fuel: "El", gearbox: "Automat", location: "Göteborg, Askim", brand: "Tesla", imageColor: "#d1d1d6", bodyType: "Sedan" },
+    { id: 3, title: "Volkswagen Golf GTI", price: 189000, year: 2018, miles: 6800, fuel: "Bensin", gearbox: "Manuell", location: "Malmö, Centrum", brand: "Volkswagen", imageColor: "#6e6e73", bodyType: "Halvkombi" },
+    { id: 4, title: "Kia Niro EV", price: 310000, year: 2022, miles: 1500, fuel: "El", gearbox: "Automat", location: "Uppsala, Luthagen", brand: "Kia", bodyType: "SUV" },
+    { id: 5, title: "Audi A6 Avant", price: 365000, year: 2019, miles: 9000, fuel: "Diesel", gearbox: "Automat", location: "Västerås, Hälla", brand: "Audi", bodyType: "Kombi" },
+    { id: 6, title: "Tesla Model Y", price: 550000, year: 2023, miles: 1200, fuel: "El", gearbox: "Automat", location: "Stockholm, City", brand: "Tesla", bodyType: "SUV" },
+    { id: 7, title: "BMW 320d", price: 295000, year: 2019, miles: 5500, fuel: "Diesel", gearbox: "Automat", location: "Lund, Centrum", brand: "BMW", bodyType: "Sedan" },
+    { id: 8, title: "Volvo XC60", price: 410000, year: 2021, miles: 4100, fuel: "Hybrid", gearbox: "Automat", location: "Göteborg, Mölndal", brand: "Volvo", bodyType: "SUV" },
 ]
 
 function AdsContent() {
@@ -29,7 +29,8 @@ function AdsContent() {
         yearMin: searchParams.get('yearMin') || "",
         yearMax: searchParams.get('yearMax') || "",
         fuel: searchParams.get('fuel') || "",
-        gearbox: searchParams.get('gearbox') || ""
+        gearbox: searchParams.get('gearbox') || "",
+        bodyType: searchParams.get('bodyType') || ""
     })
 
     // Update filters if URL params change
@@ -44,6 +45,7 @@ function AdsContent() {
             yearMax: searchParams.get('yearMax') || prev.yearMax,
             fuel: searchParams.get('fuel') || prev.fuel,
             gearbox: searchParams.get('gearbox') || prev.gearbox,
+            bodyType: searchParams.get('bodyType') || prev.bodyType,
         }))
     }, [searchParams])
 
@@ -66,6 +68,7 @@ function AdsContent() {
         if (filters.yearMax && ad.year > Number(filters.yearMax)) return false
         if (filters.fuel && ad.fuel !== filters.fuel) return false
         if (filters.gearbox && ad.gearbox !== filters.gearbox) return false
+        if (filters.bodyType && ad.bodyType !== filters.bodyType) return false
         return true
     })
 
@@ -117,7 +120,7 @@ function AdsContent() {
                             <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>Inga bilar hittades</h3>
                             <p style={{ color: '#5c5e62' }}>Prova att justera dina filter.</p>
                             <button
-                                onClick={() => setFilters({ keyword: "", brand: "", model: "", priceMax: "", yearMin: "", yearMax: "", fuel: "", gearbox: "" })}
+                                onClick={() => setFilters({ keyword: "", brand: "", model: "", priceMax: "", yearMin: "", yearMax: "", fuel: "", gearbox: "", bodyType: "" })}
                                 style={{ marginTop: '16px', color: 'var(--accent-blue)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
                             >
                                 Rensa alla filter

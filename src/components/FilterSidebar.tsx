@@ -46,6 +46,15 @@ export default function FilterSidebar({ filters, setFilters }: FilterProps) {
 
             {/* Price Max */}
             <div>
+                <label className="label">Kaross</label>
+                <select className="input-reset" value={filters.bodyType} onChange={e => handleChange('bodyType', e.target.value)}>
+                    <option value="">Alla</option>
+                    {specsData.Biltyper.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
+            </div>
+
+            {/* Price Max */}
+            <div>
                 <label className="label">Maxpris</label>
                 <select className="input-reset" value={filters.priceMax} onChange={e => handleChange('priceMax', e.target.value)}>
                     <option value="">Inget tak</option>
