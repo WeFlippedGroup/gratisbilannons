@@ -5,18 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import AdCard from '@/components/AdCard'
 import FilterSidebar from '@/components/FilterSidebar'
-
-// Mock Data moved here for filtering demo
-const MOCK_ADS = [
-    { id: 1, title: "Volvo V60 D4", price: 245000, year: 2020, miles: 4500, fuel: "Diesel", gearbox: "Automat", location: "Stockholm, Solna", brand: "Volvo", bodyType: "Kombi" },
-    { id: 2, title: "Tesla Model 3", price: 399000, year: 2021, miles: 3200, fuel: "El", gearbox: "Automat", location: "Göteborg, Askim", brand: "Tesla", imageColor: "#d1d1d6", bodyType: "Sedan" },
-    { id: 3, title: "Volkswagen Golf GTI", price: 189000, year: 2018, miles: 6800, fuel: "Bensin", gearbox: "Manuell", location: "Malmö, Centrum", brand: "Volkswagen", imageColor: "#6e6e73", bodyType: "Halvkombi" },
-    { id: 4, title: "Kia Niro EV", price: 310000, year: 2022, miles: 1500, fuel: "El", gearbox: "Automat", location: "Uppsala, Luthagen", brand: "Kia", bodyType: "SUV" },
-    { id: 5, title: "Audi A6 Avant", price: 365000, year: 2019, miles: 9000, fuel: "Diesel", gearbox: "Automat", location: "Västerås, Hälla", brand: "Audi", bodyType: "Kombi" },
-    { id: 6, title: "Tesla Model Y", price: 550000, year: 2023, miles: 1200, fuel: "El", gearbox: "Automat", location: "Stockholm, City", brand: "Tesla", bodyType: "SUV" },
-    { id: 7, title: "BMW 320d", price: 295000, year: 2019, miles: 5500, fuel: "Diesel", gearbox: "Automat", location: "Lund, Centrum", brand: "BMW", bodyType: "Sedan" },
-    { id: 8, title: "Volvo XC60", price: 410000, year: 2021, miles: 4100, fuel: "Hybrid", gearbox: "Automat", location: "Göteborg, Mölndal", brand: "Volvo", bodyType: "SUV" },
-]
+import { MOCK_ADS } from '@/data/mockAds'
 
 function AdsContent() {
     const searchParams = useSearchParams()
@@ -107,6 +96,7 @@ function AdsContent() {
                             {filteredAds.map(ad => (
                                 <AdCard
                                     key={ad.id}
+                                    id={ad.id}
                                     title={ad.title}
                                     price={`${ad.price.toLocaleString()} kr`}
                                     specs={`${ad.year} • ${ad.miles.toLocaleString().replace(',', ' ')} mil • ${ad.gearbox} • ${ad.fuel}`}
