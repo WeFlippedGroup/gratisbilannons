@@ -90,11 +90,11 @@ export default function FilterSidebar({ filters, setFilters }: FilterProps) {
 
             <style jsx>{`
                 .desktop-filters {
-                    display: flex !important;
+                    display: flex;
                 }
                 @media (max-width: 900px) {
                     .desktop-filters {
-                        display: none !important;
+                        display: none;
                     }
                 }
                 .label {

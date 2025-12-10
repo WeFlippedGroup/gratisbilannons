@@ -84,10 +84,25 @@ function AdsContent() {
                 <FilterSidebar filters={filters} setFilters={setFilters} />
 
                 <div style={{ flex: 1 }}>
+                    {filters.keyword && (
+                        <div style={{ marginBottom: '24px', padding: '16px', background: '#f4f4f4', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <span style={{ fontSize: '14px', color: '#171a20' }}>
+                                Visar resultat för: <strong>&quot;{filters.keyword}&quot;</strong>
+                            </span>
+                            <button
+                                onClick={() => setFilters(prev => ({ ...prev, keyword: "" }))}
+                                style={{ border: 'none', background: 'none', color: '#5c5e62', cursor: 'pointer', fontSize: '18px' }}
+                                title="Rensa sökning"
+                            >
+                                ×
+                            </button>
+                        </div>
+                    )}
+
                     {filteredAds.length > 0 ? (
                         <div style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
                             gap: '24px'
                         }}>
                             {filteredAds.map(ad => (
