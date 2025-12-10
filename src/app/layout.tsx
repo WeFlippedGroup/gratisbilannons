@@ -9,8 +9,24 @@ import CookieBanner from '@/components/CookieBanner'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'GratisBilAnnons.se | Sälj din bil gratis',
-  description: 'Sveriges snyggaste och enda helt gratis bilannonsplattform.',
+  title: {
+    default: 'GratisBilAnnons.se | Sälj din bil gratis',
+    template: '%s | GratisBilAnnons.se',
+  },
+  description: 'Sveriges snyggaste och enda helt gratis bilannonsplattform. Köp och sälj begagnade bilar utan dolda avgifter.',
+  keywords: ['sälja bil gratis', 'begagnade bilar', 'gratis bilannons', 'köpa bil', 'bilmarknad', 'sälja bil'],
+  openGraph: {
+    title: 'GratisBilAnnons.se - Marknadsplatsen för bilar',
+    description: 'Lägg in din bilannons helt gratis. Vi tar inga avgifter.',
+    url: 'https://gratisbilannons.se',
+    siteName: 'GratisBilAnnons.se',
+    locale: 'sv_SE',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({

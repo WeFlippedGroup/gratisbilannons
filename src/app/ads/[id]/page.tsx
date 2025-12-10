@@ -4,6 +4,30 @@ import { MOCK_ADS } from '@/data/mockAds'
 import Link from 'next/link'
 import { notFound, useParams } from 'next/navigation'
 import { useState } from 'react'
+import { Metadata } from 'next'
+import JsonLd from '@/components/JsonLd'
+
+// Generate Dynamic Metadata
+export function generateMetadata({ params }: { params: { id: string } }): Metadata {
+    const id = params.id
+    const ad = MOCK_ADS.find(a => a.id === parseInt(id))
+
+    if (!ad) {
+        return {
+            title: 'Annons ej hittad',
+        }
+    }
+
+    return {
+        title: `${ad.brand} ${ad.title} (${ad.year}) - ${ad.price.toLocaleString()} kr`,
+        description: `Köp ${ad.title} i ${ad.location}. ${ad.year} årsmodell, ${ad.miles} mil. ${ad.fuel}, ${ad.gearbox}. Pris: ${ad.price} kr.`,
+        openGraph: {
+            title: `${ad.title} | GratisBilAnnons.se`,
+            description: `Köp denna ${ad.brand} för ${ad.price} kr i ${ad.location}.`,
+            images: [ad.imageColor || ''], // In real app, this would be a URL
+        },
+    }
+}
 
 export default function AdDetailsPage() {
     const params = useParams()
@@ -21,8 +45,38 @@ export default function AdDetailsPage() {
 
     const images = ad.images || [ad.imageColor || '#f4f4f4']
 
+    // Structured Data for AI Search (schema.org/Vehicle)
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Vehicle',
+        name: ad.title,
+        image: images, // Should be real URLs
+        description: ad.description,
+        brand: {
+            '@type': 'Brand',
+            name: ad.brand,
+        },
+        model: ad.title.replace(ad.brand, '').trim(), // Rough extraction
+        vehicleModelDate: ad.year,
+        mileageFromOdometer: {
+            '@type': 'QuantitativeValue',
+            value: ad.miles,
+            unitCode: 'KMT', // Kilometers
+        },
+        fuelType: ad.fuel,
+        vehicleTransmission: ad.gearbox,
+        offers: {
+            '@type': 'Offer',
+            price: ad.price,
+            priceCurrency: 'SEK',
+            availability: 'https://schema.org/InStock',
+        },
+    }
+
+
     return (
         <main style={{ maxWidth: '1100px', margin: '0 auto', padding: '120px 24px 80px' }}>
+            <JsonLd data={jsonLd} />
             <Link href="/ads" style={{ color: 'var(--accent-blue)', fontSize: '14px', fontWeight: 500, display: 'inline-block', marginBottom: '24px' }}>
                 ← Tillbaka till listan
             </Link>
