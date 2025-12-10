@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       {/* Hero Section */}
-      <section className="hero-section" style={{ backgroundImage: 'url(/hero-car.png)', backgroundPosition: 'center 60%' }}>
+      <section className="hero-section" style={{ backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 20%, rgba(255,255,255,0) 40%), url(/hero-car.png)', backgroundPosition: 'center 60%' }}>
 
         <div style={{ textAlign: 'center', zIndex: 10 }}>
           <h1 className="hero-title">GratisBilAnnons.se</h1>
