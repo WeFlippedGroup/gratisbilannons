@@ -10,7 +10,8 @@ export const MOCK_ADS = [
         location: "Stockholm, Solna",
         brand: "Volvo",
         bodyType: "Kombi",
-        description: "En välvårdad Volvo V60 med full servicehistorik. Utrustad med teknikpaket, panoramaglastak och dragkrok. Låg skatt och bränsleförbrukning. Vinterdäck på aluminiumfälg medföljer."
+        description: "En välvårdad Volvo V60 med full servicehistorik. Utrustad med teknikpaket, panoramaglastak och dragkrok. Låg skatt och bränsleförbrukning. Vinterdäck på aluminiumfälg medföljer.",
+        images: ["#f4f4f4", "#e0e0e0", "#dcdcdc", "#c0c0c0"]
     },
     {
         id: 2,
@@ -24,7 +25,8 @@ export const MOCK_ADS = [
         brand: "Tesla",
         imageColor: "#d1d1d6",
         bodyType: "Sedan",
-        description: "Svensksåld Tesla Model 3 Long Range. Autopilot, premium interiör och 19-tums sportfälgar. Batterigaranti kvar. Perfekt skick."
+        description: "Svensksåld Tesla Model 3 Long Range. Autopilot, premium interiör och 19-tums sportfälgar. Batterigaranti kvar. Perfekt skick.",
+        images: ["#d1d1d6", "#c8c8c8", "#b0b0b0", "#a9a9a9"]
     },
     {
         id: 3,
@@ -38,7 +40,8 @@ export const MOCK_ADS = [
         brand: "Volkswagen",
         imageColor: "#6e6e73",
         bodyType: "Halvkombi",
-        description: "Klassisk Golf GTI med manuell låda för maximal körglädje. Nyservad och besiktigad. Apple CarPlay och backkamera."
+        description: "Klassisk Golf GTI med manuell låda för maximal körglädje. Nyservad och besiktigad. Apple CarPlay och backkamera.",
+        images: ["#6e6e73", "#5c5c5c", "#4a4a4a", "#383838"]
     },
     {
         id: 4,
@@ -51,7 +54,8 @@ export const MOCK_ADS = [
         location: "Uppsala, Luthagen",
         brand: "Kia",
         bodyType: "SUV",
-        description: "Kia Niro EV Advance Plus paket. I princip nybilsskick. Rymlig och praktisk elbil med lång räckvidd."
+        description: "Kia Niro EV Advance Plus paket. I princip nybilsskick. Rymlig och praktisk elbil med lång räckvidd.",
+        images: ["#f4f4f4", "#e0e0e0", "#dcdcdc"]
     },
     {
         id: 5,
@@ -64,7 +68,8 @@ export const MOCK_ADS = [
         location: "Västerås, Hälla",
         brand: "Audi",
         bodyType: "Kombi",
-        description: "Presentabel Audi A6 Avant med S-line paket. Quattro fyrhjulsdrift, navigation och matrix LED-strålkastare. Perfekt långfärdsvagn."
+        description: "Presentabel Audi A6 Avant med S-line paket. Quattro fyrhjulsdrift, navigation och matrix LED-strålkastare. Perfekt långfärdsvagn.",
+        images: ["#e0e0e0", "#d0d0d0", "#c0c0c0"]
     },
     {
         id: 6,
@@ -77,7 +82,8 @@ export const MOCK_ADS = [
         location: "Stockholm, City",
         brand: "Tesla",
         bodyType: "SUV",
-        description: "Model Y Performance. Galen acceleration och massor av utrymme. Dragkrok monterad. Endast en ägare."
+        description: "Model Y Performance. Galen acceleration och massor av utrymme. Dragkrok monterad. Endast en ägare.",
+        images: ["#f2f2f2", "#e6e6e6", "#d9d9d9"]
     },
     {
         id: 7,
@@ -90,7 +96,8 @@ export const MOCK_ADS = [
         location: "Lund, Centrum",
         brand: "BMW",
         bodyType: "Sedan",
-        description: "BMW 320d xDrive M Sport. Sportstolar, HiFi-ljudsystem och digital förarplats. Mycket fint skick in- och utvändigt."
+        description: "BMW 320d xDrive M Sport. Sportstolar, HiFi-ljudsystem och digital förarplats. Mycket fint skick in- och utvändigt.",
+        images: ["#e8e8e8", "#d8d8d8", "#c8c8c8"]
     },
     {
         id: 8,
@@ -103,6 +110,7 @@ export const MOCK_ADS = [
         location: "Göteborg, Mölndal",
         brand: "Volvo",
         bodyType: "SUV",
-        description: "Volvo XC60 T8 Twin Engine Inscription. Laddhybrid som klarar vardagspendligen på el. Panoramatak, skinnklädsel och Bowers & Wilkins ljud."
+        description: "Volvo XC60 T8 Twin Engine Inscription. Laddhybrid som klarar vardagspendligen på el. Panoramatak, skinnklädsel och Bowers & Wilkins ljud.",
+        images: ["#f8f8f8", "#eaeaea", "#dadada"]
     },
 ]
