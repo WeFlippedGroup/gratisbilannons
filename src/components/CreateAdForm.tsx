@@ -27,6 +27,7 @@ export default function CreateAdForm() {
 
     const [lan, setLan] = useState("")
     const [kommun, setKommun] = useState("")
+    const [manualPlace, setManualPlace] = useState("")
 
     // Dealer specific
     const [companyName, setCompanyName] = useState("")
@@ -216,13 +217,29 @@ export default function CreateAdForm() {
                     </div>
                 </div>
 
+                {/* Explicit Place Field */}
+                <div>
+                    <label className="label">Område / Plats (Valfritt)</label>
+                    <input
+                        type="text"
+                        className="input-reset"
+                        placeholder="T.ex. Södermalm, Centrum, Askim..."
+                        value={manualPlace}
+                        onChange={e => setManualPlace(e.target.value)}
+                    />
+                </div>
+
                 <button type="submit" className="button" style={{
                     width: '100%',
-                    marginTop: '24px',
-                    height: '48px',
+                    marginTop: '32px',
+                    height: '52px',
                     fontSize: '16px',
-                    background: 'var(--accent-blue)',
-                    color: 'white'
+                    fontWeight: 600,
+                    background: '#171a20', /* Neural Dark */
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer'
                 }}>
                     {adType === 'private' ? 'Publicera annons gratis' : 'Publicera företagsannons'}
                 </button>
