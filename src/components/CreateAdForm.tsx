@@ -33,6 +33,25 @@ export default function CreateAdForm() {
     const [companyName, setCompanyName] = useState("")
     const [orgNumber, setOrgNumber] = useState("")
 
+    // Image State
+    const [images, setImages] = useState<File[]>([])
+    const [previews, setPreviews] = useState<string[]>([])
+
+    const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const files = Array.from(e.target.files)
+            setImages(prev => [...prev, ...files])
+
+            const newPreviews = files.map(file => URL.createObjectURL(file))
+            setPreviews(prev => [...prev, ...newPreviews])
+        }
+    }
+
+    const removeImage = (index: number) => {
+        setImages(prev => prev.filter((_, i) => i !== index))
+        setPreviews(prev => prev.filter((_, i) => i !== index))
+    }
+
     // Derived Data
     const brands = useMemo(() => carsData.Bilmärken.map(b => b.Namn).sort(), [])
 
@@ -183,6 +202,60 @@ export default function CreateAdForm() {
                             <option value="">Välj växellåda</option>
                             {specsData.Växellådor.map(g => <option key={g} value={g}>{g}</option>)}
                         </select>
+                    </div>
+                </div>
+
+                {/* Images Section */}
+                <div>
+                    <label className="label">Bilder (Max 10)</label>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '12px' }}>
+
+                        {/* Upload Button */}
+                        <label style={{
+                            border: '1px dashed #d0d1d2',
+                            borderRadius: '4px',
+                            height: '100px',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: '#5c5e62',
+                            fontSize: '13px',
+                            background: '#f9f9f9',
+                            transition: 'all 0.2s'
+                        }} className="upload-box">
+                            <span style={{ fontSize: '24px', marginBottom: '4px' }}>+</span>
+                            <span>Välj bilder</span>
+                            <input type="file" multiple accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
+                        </label>
+
+                        {/* Previews */}
+                        {previews.map((src, idx) => (
+                            <div key={idx} style={{ position: 'relative', height: '100px', borderRadius: '4px', overflow: 'hidden' }}>
+                                <img src={src} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                <button
+                                    type="button"
+                                    onClick={() => removeImage(idx)}
+                                    style={{
+                                        position: 'absolute',
+                                        top: '4px',
+                                        right: '4px',
+                                        background: 'rgba(0,0,0,0.5)',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '50%',
+                                        width: '20px',
+                                        height: '20px',
+                                        fontSize: '12px',
+                                        cursor: 'pointer',
+                                        lineHeight: '1'
+                                    }}
+                                >
+                                    ×
+                                </button>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
