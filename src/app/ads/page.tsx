@@ -100,11 +100,7 @@ function AdsContent() {
                     )}
 
                     {filteredAds.length > 0 ? (
-                        <div style={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                            gap: '24px'
-                        }}>
+                        <div className="ad-grid">
                             {filteredAds.map(ad => (
                                 <AdCard
                                     key={ad.id}
@@ -130,6 +126,24 @@ function AdsContent() {
                     )}
                 </div>
             </div>
+
+            <style jsx>{`
+                .ad-grid {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    gap: 24px;
+                }
+                @media (min-width: 768px) {
+                    .ad-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+                @media (min-width: 1100px) {
+                    .ad-grid {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+                }
+            `}</style>
         </main>
     )
 }
