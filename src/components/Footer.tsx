@@ -5,10 +5,8 @@ import Link from 'next/link'
 export default function Footer() {
     return (
         <footer style={{
-            borderTop: '1px solid #e8e8e8',
             padding: '48px 24px',
             marginTop: 'auto',
-            backgroundColor: '#fbfbfb',
             fontSize: '12px',
             color: '#5c5e62'
         }}>
@@ -22,10 +20,9 @@ export default function Footer() {
                     <Link href="/cookiepolicy" className="footer-link">Cookiepolicy</Link>
                 </nav>
 
-                {/* Contact & Copyright */}
+                {/* Copyright */}
                 <div style={{ textAlign: 'center', lineHeight: '1.6' }}>
-                    <p>Kontakt: <a href="mailto:kontakt@gratisbilannons.se" style={{ textDecoration: 'underline' }}>kontakt@gratisbilannons.se</a></p>
-                    <p style={{ marginTop: '12px' }}>&copy; 2025 WeFlipped Group AB | Org.nr: 559535-6857</p>
+                    <p>&copy; 2025 GratisBilAnnons.se</p>
                     <p style={{ marginTop: '8px' }}>
                         Powered by <a href="https://weflippedgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3e6ae1', fontWeight: 500 }}>WeFlipped Group</a>
                     </p>
