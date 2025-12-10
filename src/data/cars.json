@@ -1,0 +1,550 @@
+{
+    "Bilmärken": [
+        {
+            "Namn": "Alfa Romeo",
+            "Modeller": [
+                "Giulia",
+                "Stelvio",
+                "Giulietta",
+                "4C"
+            ]
+        },
+        {
+            "Namn": "Audi",
+            "Modeller": [
+                "A1",
+                "A3",
+                "A4",
+                "A5",
+                "A6",
+                "A7",
+                "A8",
+                "Q2",
+                "Q3",
+                "Q5",
+                "Q7",
+                "Q8",
+                "TT",
+                "R8"
+            ]
+        },
+        {
+            "Namn": "BMW",
+            "Modeller": [
+                "1-serie",
+                "2-serie",
+                "3-serie",
+                "4-serie",
+                "5-serie",
+                "7-serie",
+                "X1",
+                "X3",
+                "X5",
+                "i3",
+                "i4",
+                "iX"
+            ]
+        },
+        {
+            "Namn": "Bugatti",
+            "Modeller": [
+                "Chiron",
+                "Veyron",
+                "Divo"
+            ]
+        },
+        {
+            "Namn": "Bentley",
+            "Modeller": [
+                "Continental GT",
+                "Flying Spur",
+                "Bentayga"
+            ]
+        },
+        {
+            "Namn": "BYD",
+            "Modeller": [
+                "Tang",
+                "Atto 3",
+                "Han",
+                "Seal"
+            ]
+        },
+        {
+            "Namn": "Citroën",
+            "Modeller": [
+                "C1",
+                "C3",
+                "C4",
+                "C5 Aircross",
+                "Berlingo"
+            ]
+        },
+        {
+            "Namn": "Chevrolet",
+            "Modeller": [
+                "Camaro",
+                "Corvette",
+                "Tahoe",
+                "Bolt EV"
+            ]
+        },
+        {
+            "Namn": "Chrysler",
+            "Modeller": [
+                "300",
+                "Pacifica"
+            ]
+        },
+        {
+            "Namn": "Dacia",
+            "Modeller": [
+                "Duster",
+                "Sandero",
+                "Lodgy",
+                "Spring"
+            ]
+        },
+        {
+            "Namn": "Dodge",
+            "Modeller": [
+                "Challenger",
+                "Charger",
+                "Durango"
+            ]
+        },
+        {
+            "Namn": "DS Automobiles",
+            "Modeller": [
+                "DS 3 Crossback",
+                "DS 7 Crossback",
+                "DS 9"
+            ]
+        },
+        {
+            "Namn": "Fiat",
+            "Modeller": [
+                "500",
+                "Panda",
+                "Tipo",
+                "500X"
+            ]
+        },
+        {
+            "Namn": "Ford",
+            "Modeller": [
+                "Fiesta",
+                "Focus",
+                "Mondeo",
+                "Mustang",
+                "Kuga",
+                "Puma"
+            ]
+        },
+        {
+            "Namn": "Fisker",
+            "Modeller": [
+                "Ocean"
+            ]
+        },
+        {
+            "Namn": "Genesis",
+            "Modeller": [
+                "G70",
+                "G80",
+                "G90",
+                "GV60",
+                "GV70"
+            ]
+        },
+        {
+            "Namn": "GMC",
+            "Modeller": [
+                "Sierra",
+                "Yukon",
+                "Hummer EV"
+            ]
+        },
+        {
+            "Namn": "Honda",
+            "Modeller": [
+                "Civic",
+                "Accord",
+                "CR-V",
+                "HR-V",
+                "Jazz"
+            ]
+        },
+        {
+            "Namn": "Hyundai",
+            "Modeller": [
+                "i10",
+                "i20",
+                "i30",
+                "Tucson",
+                "Santa Fe",
+                "IONIQ 5",
+                "IONIQ 6"
+            ]
+        },
+        {
+            "Namn": "Infiniti",
+            "Modeller": [
+                "Q50",
+                "Q60",
+                "QX50",
+                "QX60",
+                "QX80"
+            ]
+        },
+        {
+            "Namn": "Isuzu",
+            "Modeller": [
+                "D-Max",
+                "MU-X"
+            ]
+        },
+        {
+            "Namn": "Iveco",
+            "Modeller": [
+                "Daily",
+                "Eurocargo"
+            ]
+        },
+        {
+            "Namn": "Jaguar",
+            "Modeller": [
+                "XE",
+                "XF",
+                "XJ",
+                "F-Pace",
+                "E-Pace",
+                "I-Pace"
+            ]
+        },
+        {
+            "Namn": "Jeep",
+            "Modeller": [
+                "Renegade",
+                "Compass",
+                "Cherokee",
+                "Grand Cherokee",
+                "Wrangler"
+            ]
+        },
+        {
+            "Namn": "Kia",
+            "Modeller": [
+                "Picanto",
+                "Ceed",
+                "Niro",
+                "Sportage",
+                "EV6"
+            ]
+        },
+        {
+            "Namn": "Lamborghini",
+            "Modeller": [
+                "Huracán",
+                "Aventador",
+                "Urus",
+                "Revuelto"
+            ]
+        },
+        {
+            "Namn": "Land Rover",
+            "Modeller": [
+                "Defender",
+                "Discovery",
+                "Range Rover",
+                "Range Rover Sport",
+                "Evoque"
+            ]
+        },
+        {
+            "Namn": "Lexus",
+            "Modeller": [
+                "IS",
+                "ES",
+                "GS",
+                "LS",
+                "NX",
+                "RX",
+                "UX",
+                "LC"
+            ]
+        },
+        {
+            "Namn": "Lincoln",
+            "Modeller": [
+                "Corsair",
+                "Aviator",
+                "Navigator",
+                "Nautilus"
+            ]
+        },
+        {
+            "Namn": "Lotus",
+            "Modeller": [
+                "Evora",
+                "Elise",
+                "Emira"
+            ]
+        },
+        {
+            "Namn": "Lancia",
+            "Modeller": [
+                "Ypsilon",
+                "Delta"
+            ]
+        },
+        {
+            "Namn": "Maserati",
+            "Modeller": [
+                "Ghibli",
+                "Quattroporte",
+                "Levante",
+                "MC20"
+            ]
+        },
+        {
+            "Namn": "Mazda",
+            "Modeller": [
+                "Mazda2",
+                "Mazda3",
+                "Mazda6",
+                "CX-3",
+                "CX-30",
+                "CX-5",
+                "MX-5"
+            ]
+        },
+        {
+            "Namn": "McLaren",
+            "Modeller": [
+                "720S",
+                "GT",
+                "Artura",
+                "P1"
+            ]
+        },
+        {
+            "Namn": "Mini",
+            "Modeller": [
+                "Hatch",
+                "Clubman",
+                "Countryman"
+            ]
+        },
+        {
+            "Namn": "Mercedes-Benz",
+            "Modeller": [
+                "A-Class",
+                "B-Class",
+                "C-Class",
+                "E-Class",
+                "S-Class",
+                "GLA",
+                "GLB",
+                "GLC",
+                "GLE",
+                "GLS",
+                "EQC"
+            ]
+        },
+        {
+            "Namn": "Mitsubishi",
+            "Modeller": [
+                "Space Star",
+                "ASX",
+                "Outlander",
+                "Eclipse Cross"
+            ]
+        },
+        {
+            "Namn": "Nissan",
+            "Modeller": [
+                "Micra",
+                "Juke",
+                "Qashqai",
+                "X-Trail",
+                "Leaf"
+            ]
+        },
+        {
+            "Namn": "Noble",
+            "Modeller": [
+                "M500",
+                "M600"
+            ]
+        },
+        {
+            "Namn": "Opel",
+            "Modeller": [
+                "Corsa",
+                "Astra",
+                "Mokka",
+                "Grandland"
+            ]
+        },
+        {
+            "Namn": "Peugeot",
+            "Modeller": [
+                "208",
+                "308",
+                "508",
+                "2008",
+                "3008",
+                "5008"
+            ]
+        },
+        {
+            "Namn": "Polestar",
+            "Modeller": [
+                "Polestar 1",
+                "Polestar 2",
+                "Polestar 3"
+            ]
+        },
+        {
+            "Namn": "Ram",
+            "Modeller": [
+                "1500",
+                "2500",
+                "3500"
+            ]
+        },
+        {
+            "Namn": "Renault",
+            "Modeller": [
+                "Clio",
+                "Mégane",
+                "Talisman",
+                "Captur",
+                "Kadjar",
+                "Austral"
+            ]
+        },
+        {
+            "Namn": "Rolls-Royce",
+            "Modeller": [
+                "Phantom",
+                "Ghost",
+                "Cullinan",
+                "Wraith",
+                "Dawn"
+            ]
+        },
+        {
+            "Namn": "Rivian",
+            "Modeller": [
+                "R1T",
+                "R1S"
+            ]
+        },
+        {
+            "Namn": "Saab",
+            "Modeller": [
+                "900",
+                "9000",
+                "9-3",
+                "9-5"
+            ]
+        },
+        {
+            "Namn": "Subaru",
+            "Modeller": [
+                "Impreza",
+                "XV",
+                "Forester",
+                "Outback",
+                "Solterra"
+            ]
+        },
+        {
+            "Namn": "Suzuki",
+            "Modeller": [
+                "Swift",
+                "Vitara",
+                "S-Cross",
+                "Jimny"
+            ]
+        },
+        {
+            "Namn": "Tesla",
+            "Modeller": [
+                "Model S",
+                "Model 3",
+                "Model X",
+                "Model Y",
+                "Cybertruck",
+                "Roadster"
+            ]
+        },
+        {
+            "Namn": "Toyota",
+            "Modeller": [
+                "Yaris",
+                "Corolla",
+                "CHR",
+                "Camry",
+                "RAV4",
+                "Highlander",
+                "Supra",
+                "Prius"
+            ]
+        },
+        {
+            "Namn": "Triumph",
+            "Modeller": [
+                "TR6",
+                "Spitfire",
+                "Stag"
+            ]
+        },
+        {
+            "Namn": "Volkswagen",
+            "Modeller": [
+                "Polo",
+                "Golf",
+                "Passat",
+                "Arteon",
+                "T-Roc",
+                "Tiguan",
+                "Touareg",
+                "ID.3",
+                "ID.4",
+                "ID.5"
+            ]
+        },
+        {
+            "Namn": "Volvo",
+            "Modeller": [
+                "XC40",
+                "XC60",
+                "XC90",
+                "V40",
+                "V60",
+                "V90",
+                "S60",
+                "S90",
+                "EX30",
+                "EX90"
+            ]
+        },
+        {
+            "Namn": "Wiesmann",
+            "Modeller": [
+                "GT MF5",
+                "Roadster MF4"
+            ]
+        },
+        {
+            "Namn": "Zenos",
+            "Modeller": [
+                "E10",
+                "E10 S"
+            ]
+        }
+    ]
+}

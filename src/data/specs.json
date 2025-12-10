@@ -1,0 +1,32 @@
+{
+    "Biltyper": [
+        "Kombi",
+        "SUV",
+        "Sedan",
+        "Halvkombi",
+        "Cabriolet",
+        "Coupé",
+        "Större familjebil"
+    ],
+    "Bränsletyper": [
+        "El",
+        "Bensin",
+        "Diesel",
+        "E85",
+        "Hybrid",
+        "Plug-in hybrid",
+        "Vätgas"
+    ],
+    "Drivningar": [
+        "FWD",
+        "RWD",
+        "AWD",
+        "4WD"
+    ],
+    "Växellådor": [
+        "Manuell",
+        "Automat",
+        "Dubbelkoppling",
+        "CVT"
+    ]
+}
