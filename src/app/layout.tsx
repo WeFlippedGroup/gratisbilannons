@@ -1,9 +1,14 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import { AuthProvider } from '@/context/AuthContext'
+import AuthModal from '@/components/AuthModal'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'GratisBilAnnons.se | Köp och sälj bilar gratis',
-  description: 'Sveriges mest användarvänliga plattform för bilannonser.',
+  title: 'GratisBilAnnons.se | Sälj din bil gratis',
+  description: 'Sveriges snyggaste och enda helt gratis bilannonsplattform.',
 }
 
 export default function RootLayout({
@@ -13,7 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="sv">
-      <body>{children}</body>
+      <body className={inter.className}>
+        <AuthProvider>
+          {children}
+          <AuthModal />
+        </AuthProvider>
+      </body>
     </html>
   )
 }

@@ -1,7 +1,23 @@
+"use client"
+
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import SearchFilter from '@/components/SearchFilter'
+import { useAuth } from '@/context/AuthContext'
 
 export default function Home() {
+  const { user, openModal } = useAuth()
+  const router = useRouter()
+
+  const handleSellClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    if (user) {
+      router.push('/create-ad')
+    } else {
+      openModal()
+    }
+  }
+
   return (
     <main>
       {/* Hero Section */}
@@ -19,9 +35,9 @@ export default function Home() {
             <Link href="/ads" className="btn-primary">
               Se lagerbilar
             </Link>
-            <Link href="/create-ad" className="btn-secondary">
+            <button onClick={handleSellClick} className="btn-secondary">
               Sälj din bil
-            </Link>
+            </button>
           </div>
 
           <p style={{ fontSize: '12px', color: '#5c5e62', marginTop: '16px' }}>
