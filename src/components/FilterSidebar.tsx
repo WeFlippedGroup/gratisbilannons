@@ -23,7 +23,7 @@ export default function FilterSidebar({ filters, setFilters }: FilterProps) {
     }
 
     return (
-        <aside style={{ width: '280px', flexShrink: 0, paddingRight: '32px', borderRight: '1px solid #e8e8e8', display: 'none', flexDirection: 'column', gap: '24px' }} className="desktop-filters">
+        <aside style={{ width: '280px', flexShrink: 0, paddingRight: '32px', borderRight: '1px solid #e8e8e8', flexDirection: 'column', gap: '24px' }} className="desktop-filters">
             <h3 style={{ fontSize: '18px', fontWeight: 500 }}>Filtrera</h3>
 
             {/* Brand */}
