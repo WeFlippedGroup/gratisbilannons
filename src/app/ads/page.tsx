@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import AdCard from '@/components/AdCard'
@@ -18,10 +18,9 @@ const MOCK_ADS = [
     { id: 8, title: "Volvo XC60", price: 410000, year: 2021, miles: 4100, fuel: "Hybrid", gearbox: "Automat", location: "Göteborg, Mölndal", brand: "Volvo" },
 ]
 
-export default function AdsPage() {
+function AdsContent() {
     const searchParams = useSearchParams()
 
-    // Initial state from URL params
     const [filters, setFilters] = useState({
         brand: searchParams.get('brand') || "",
         model: searchParams.get('model') || "",
@@ -32,10 +31,19 @@ export default function AdsPage() {
         gearbox: ""
     })
 
+    // Update filters if URL params change (e.g. navigation from home)
+    useEffect(() => {
+        setFilters(prev => ({
+            ...prev,
+            brand: searchParams.get('brand') || prev.brand,
+            model: searchParams.get('model') || prev.model
+        }))
+    }, [searchParams])
+
     // Filter Logic
     const filteredAds = MOCK_ADS.filter(ad => {
         if (filters.brand && !ad.brand.includes(filters.brand)) return false
-        if (filters.model && !ad.title.includes(filters.model)) return false // Simple string match for mock
+        if (filters.model && !ad.title.includes(filters.model)) return false
         if (filters.priceMax && ad.price > Number(filters.priceMax)) return false
         if (filters.yearMin && ad.year < Number(filters.yearMin)) return false
         if (filters.yearMax && ad.year > Number(filters.yearMax)) return false
@@ -56,11 +64,8 @@ export default function AdsPage() {
             </div>
 
             <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-start' }}>
-
-                {/* Sidebar Filter */}
                 <FilterSidebar filters={filters} setFilters={setFilters} />
 
-                {/* Ad Grid */}
                 <div style={{ flex: 1 }}>
                     {filteredAds.length > 0 ? (
                         <div style={{
@@ -94,5 +99,13 @@ export default function AdsPage() {
                 </div>
             </div>
         </main>
+    )
+}
+
+export default function AdsPage() {
+    return (
+        <Suspense fallback={<div style={{ padding: '100px', textAlign: 'center' }}>Laddar annonser...</div>}>
+            <AdsContent />
+        </Suspense>
     )
 }
