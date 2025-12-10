@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { AuthProvider } from '@/context/AuthContext'
 import AuthModal from '@/components/AuthModal'
-import Footer from '@/components/Footer'
+import FooterWrapper from '@/components/FooterWrapper'
 import CookieBanner from '@/components/CookieBanner'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className={inter.className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <AuthProvider>
           {children}
-          <Footer />
+          <FooterWrapper />
           <AuthModal />
           <CookieBanner />
         </AuthProvider>
