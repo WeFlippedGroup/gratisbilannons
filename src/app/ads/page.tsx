@@ -22,28 +22,45 @@ function AdsContent() {
     const searchParams = useSearchParams()
 
     const [filters, setFilters] = useState({
+        keyword: searchParams.get('q') || "",
         brand: searchParams.get('brand') || "",
         model: searchParams.get('model') || "",
-        priceMax: "",
-        yearMin: "",
-        yearMax: "",
-        fuel: "",
-        gearbox: ""
+        priceMax: searchParams.get('priceMax') || "",
+        yearMin: searchParams.get('yearMin') || "",
+        yearMax: searchParams.get('yearMax') || "",
+        fuel: searchParams.get('fuel') || "",
+        gearbox: searchParams.get('gearbox') || ""
     })
 
-    // Update filters if URL params change (e.g. navigation from home)
+    // Update filters if URL params change
     useEffect(() => {
         setFilters(prev => ({
             ...prev,
-            brand: searchParams.get('brand') || prev.brand,
-            model: searchParams.get('model') || prev.model
+            keyword: searchParams.get('q') || "",
+            brand: searchParams.get('brand') || "",
+            model: searchParams.get('model') || "",
+            priceMax: searchParams.get('priceMax') || prev.priceMax, // Persist manual filters if not in URL
+            yearMin: searchParams.get('yearMin') || prev.yearMin,
+            yearMax: searchParams.get('yearMax') || prev.yearMax,
+            fuel: searchParams.get('fuel') || prev.fuel,
+            gearbox: searchParams.get('gearbox') || prev.gearbox,
         }))
     }, [searchParams])
 
     // Filter Logic
     const filteredAds = MOCK_ADS.filter(ad => {
-        if (filters.brand && !ad.brand.includes(filters.brand)) return false
-        if (filters.model && !ad.title.includes(filters.model)) return false
+        // Keyword Search (Case Insensitive)
+        if (filters.keyword) {
+            const q = filters.keyword.toLowerCase()
+            const matchesKeyword =
+                ad.title.toLowerCase().includes(q) ||
+                ad.brand.toLowerCase().includes(q) ||
+                ad.location.toLowerCase().includes(q)
+            if (!matchesKeyword) return false
+        }
+
+        if (filters.brand && !ad.brand.toLowerCase().includes(filters.brand.toLowerCase())) return false
+        if (filters.model && !ad.title.toLowerCase().includes(filters.model.toLowerCase())) return false
         if (filters.priceMax && ad.price > Number(filters.priceMax)) return false
         if (filters.yearMin && ad.year < Number(filters.yearMin)) return false
         if (filters.yearMax && ad.year > Number(filters.yearMax)) return false
@@ -70,7 +87,7 @@ function AdsContent() {
                     {filteredAds.length > 0 ? (
                         <div style={{
                             display: 'grid',
-                            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
                             gap: '24px'
                         }}>
                             {filteredAds.map(ad => (
@@ -89,7 +106,7 @@ function AdsContent() {
                             <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>Inga bilar hittades</h3>
                             <p style={{ color: '#5c5e62' }}>Prova att justera dina filter.</p>
                             <button
-                                onClick={() => setFilters({ brand: "", model: "", priceMax: "", yearMin: "", yearMax: "", fuel: "", gearbox: "" })}
+                                onClick={() => setFilters({ keyword: "", brand: "", model: "", priceMax: "", yearMin: "", yearMax: "", fuel: "", gearbox: "" })}
                                 style={{ marginTop: '16px', color: 'var(--accent-blue)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
                             >
                                 Rensa alla filter
