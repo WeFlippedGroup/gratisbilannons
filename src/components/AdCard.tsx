@@ -6,27 +6,35 @@ type AdProps = {
     imageColor?: string
 }
 
-export default function AdCard({ title, price, specs, location, imageColor = '#e8e8ed' }: AdProps) {
+export default function AdCard({ title, price, specs, location, imageColor = '#f4f4f4' }: AdProps) {
     return (
-        <div className="glass-panel" style={{ overflow: 'hidden', padding: 0, transition: 'transform 0.2s', cursor: 'pointer' }}>
+        <div style={{
+            background: '#fff',
+            borderRadius: '4px',
+            boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
+            overflow: 'hidden',
+            transition: 'all 0.2s',
+            cursor: 'pointer'
+        }}>
             <div style={{
-                height: '200px',
+                height: '220px',
                 backgroundColor: imageColor,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: 'var(--gray-500)',
-                fontSize: '14px'
+                color: '#5c5e62',
+                fontSize: '14px',
+                fontWeight: 500
             }}>
-                Bild
+                BILD PÅ BIL
             </div>
-            <div style={{ padding: '20px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                    <h3 style={{ fontSize: '17px', fontWeight: 600 }}>{title}</h3>
-                    <span style={{ fontSize: '17px', fontWeight: 600, color: 'var(--accent-blue)' }}>{price}</span>
+            <div style={{ padding: '24px 20px' }}>
+                <div style={{ marginBottom: '8px' }}>
+                    <h3 style={{ fontSize: '17px', fontWeight: 500, color: '#171a20', marginBottom: '4px' }}>{title}</h3>
+                    <span style={{ fontSize: '15px', color: '#5c5e62' }}>{price}</span>
                 </div>
-                <p style={{ fontSize: '13px', color: 'var(--gray-500)', marginBottom: '4px' }}>{specs}</p>
-                <p style={{ fontSize: '13px', color: 'var(--gray-400)' }}>{location}</p>
+                <p style={{ fontSize: '13px', color: '#5c5e62', marginBottom: '8px' }}>{specs}</p>
+                <p style={{ fontSize: '13px', color: '#9ca3af' }}>{location}</p>
             </div>
         </div>
     )
