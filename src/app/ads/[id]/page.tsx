@@ -2,10 +2,16 @@
 
 import { MOCK_ADS } from '@/data/mockAds'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, useParams } from 'next/navigation'
 
-export default function AdDetailsPage({ params }: { params: { id: string } }) {
-    const ad = MOCK_ADS.find(a => a.id === parseInt(params.id))
+export default function AdDetailsPage() {
+    const params = useParams()
+    // params.id can be string or string[]
+    const id = Array.isArray(params.id) ? params.id[0] : params.id
+
+    if (!id) return notFound()
+
+    const ad = MOCK_ADS.find(a => a.id === parseInt(id))
 
     if (!ad) {
         return notFound()
