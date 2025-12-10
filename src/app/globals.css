@@ -51,8 +51,8 @@ a {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding-top: 15vh;
-  /* Push title up */
+  padding-top: 8vh;
+  /* Push title up slightly less */
   padding-bottom: 120px;
   background-size: cover;
   background-position: center;
