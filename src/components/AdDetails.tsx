@@ -13,11 +13,13 @@ type Ad = {
     fuel: string
     location: string
     brand: string
-    bodyType?: string
+    model?: string
+    regNumber?: string
     color?: string
     description?: string
     imageColor?: string
     images?: string[]
+    bodyType?: string
 }
 
 export default function AdDetails({ ad }: { ad: Ad }) {
@@ -85,8 +87,11 @@ export default function AdDetails({ ad }: { ad: Ad }) {
                 {/* Right Column: Key Info & Contact */}
                 <aside style={{ position: 'sticky', top: '120px' }}>
                     <div style={{ background: '#fff', border: '1px solid #e8e8e8', borderRadius: '8px', padding: '32px', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
-                        <h1 style={{ fontSize: '28px', fontWeight: 600, marginBottom: '8px', lineHeight: '1.2' }}>{ad.title}</h1>
-                        <div style={{ fontSize: '24px', fontWeight: 500, color: '#171a20', marginBottom: '24px' }}>
+                        <h1 style={{ fontSize: '32px', fontWeight: 700, marginBottom: '8px' }}>
+                            {ad.brand} {ad.model} <span style={{ opacity: 0.5, fontSize: '0.8em' }}>{ad.year}</span>
+                            {ad.regNumber && <span style={{ marginLeft: '12px', fontSize: '0.6em', background: '#f4f4f4', padding: '4px 8px', borderRadius: '4px', verticalAlign: 'middle', letterSpacing: '1px' }}>{ad.regNumber}</span>}
+                        </h1>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#5c5e62', marginBottom: '24px' }}>
                             {ad.price.toLocaleString()} kr
                         </div>
 

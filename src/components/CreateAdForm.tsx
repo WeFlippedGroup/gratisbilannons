@@ -37,6 +37,7 @@ export default function CreateAdForm() {
     const [kommun, setKommun] = useState("")
     const [manualPlace, setManualPlace] = useState("")
     const [color, setColor] = useState("")
+    const [regNumber, setRegNumber] = useState("")
 
 
     // Dealer specific
@@ -157,6 +158,7 @@ export default function CreateAdForm() {
                     gearbox,
                     body_type: "Sedan", // Simplified for now
                     color,
+                    reg_number: regNumber.toUpperCase(),
                     location: `${lan}, ${kommun} ${manualPlace ? '- ' + manualPlace : ''}`,
                     description,
                     images: uploadedImageUrls,
@@ -258,6 +260,18 @@ export default function CreateAdForm() {
                             <option value="">Välj modell</option>
                             {models.map(m => <option key={m} value={m}>{m}</option>)}
                         </select>
+                        <div style={{ marginTop: '12px' }}>
+                            <label className="label">Registreringsnummer</label>
+                            <input
+                                type="text"
+                                className="input-reset"
+                                placeholder="ABC 123"
+                                maxLength={7}
+                                value={regNumber}
+                                onChange={e => setRegNumber(e.target.value.toUpperCase())}
+                                required
+                            />
+                        </div>
                         {/* Manual Model Input */}
                         {isManualModel && (
                             <input
