@@ -83,3 +83,33 @@ $$ language plpgsql security definer;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
+
+-- STORAGE: Create 'car-images' bucket
+insert into storage.buckets (id, name, public) 
+values ('car-images', 'car-images', true)
+on conflict (id) do nothing;
+
+-- STORAGE POLICIES
+-- Allow public access to view images
+create policy "Public Access"
+on storage.objects
+for select
+using ( bucket_id = 'car-images' );
+
+-- Allow authenticated users to upload images
+create policy "Authenticated Upload"
+on storage.objects
+for insert
+with check ( bucket_id = 'car-images' and auth.role() = 'authenticated' );
+
+-- Allow users to update their own images (optional, but good for cleanup/replacements)
+create policy "User Update Own Images"
+on storage.objects
+for update
+using ( bucket_id = 'car-images' and auth.uid() = owner );
+
+-- Allow users to delete their own images
+create policy "User Delete Own Images"
+on storage.objects
+for delete
+using ( bucket_id = 'car-images' and auth.uid() = owner );

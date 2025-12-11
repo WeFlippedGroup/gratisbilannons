@@ -8,6 +8,7 @@ import carsData from '@/data/cars.json'
 import specsData from '@/data/specs.json'
 import { useAuth } from '@/context/AuthContext'
 import { supabase } from '@/lib/supabase'
+import imageCompression from 'browser-image-compression'
 
 type AdType = 'private' | 'dealer'
 // @ts-ignore
@@ -85,6 +86,7 @@ export default function CreateAdForm() {
         return locationsData.Sverige[lan as keyof Locations]?.sort() || []
     }, [lan])
 
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
@@ -95,34 +97,81 @@ export default function CreateAdForm() {
             return
         }
 
-        const finalModel = isManualModel || !model ? manualModelInput : model
+        const uploadedImageUrls: string[] = []
 
-        // Insert into Supabase
-        const { error } = await supabase
-            .from('ads')
-            .insert({
-                user_id: user.id,
-                title: `${brand} ${finalModel}`,
-                brand,
-                model: finalModel,
-                year: parseInt(year) || 0,
-                miles: parseInt(miles) || 0,
-                price: parseInt(price) || 0,
-                fuel,
-                gearbox,
-                body_type: "Sedan", // Simplified for now
-                location: `${lan}, ${kommun}`,
-                description,
-                images: [], // TODO: Implement real image upload
-                image_color: '#3e6ae1' // Placeholder
-            })
+        try {
+            // Unsaved files? Or just uploading everything now?
+            // In a real app we might want to upload as they are selected to save time,
+            // but this is safer for consistency (no orphan files if form abandoned).
 
-        if (error) {
-            alert('Kunde inte skapa annons: ' + error.message)
+            for (const file of images) {
+                const options = {
+                    maxSizeMB: 1,
+                    maxWidthOrHeight: 1920,
+                    useWebWorker: true,
+                    initialQuality: 0.8
+                }
+
+                try {
+                    const compressedFile = await imageCompression(file, options)
+                    const fileName = `${user.id}/${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '')}`
+
+                    const { data: uploadData, error: uploadError } = await supabase.storage
+                        .from('car-images')
+                        .upload(fileName, compressedFile)
+
+                    if (uploadError) {
+                        console.error('Upload error:', uploadError)
+                        continue // Skip failed uploads? Or fail hard? Let's skip for now.
+                    }
+
+                    const { data: publicUrlData } = supabase.storage
+                        .from('car-images')
+                        .getPublicUrl(fileName)
+
+                    if (publicUrlData.publicUrl) {
+                        uploadedImageUrls.push(publicUrlData.publicUrl)
+                    }
+
+                } catch (err) {
+                    console.error('Compression/Upload Error', err)
+                }
+            }
+
+            const finalModel = isManualModel || !model ? manualModelInput : model
+
+            // Insert into Supabase
+            const { error } = await supabase
+                .from('ads')
+                .insert({
+                    user_id: user.id,
+                    title: `${brand} ${finalModel}`,
+                    brand,
+                    model: finalModel,
+                    year: parseInt(year) || 0,
+                    miles: parseInt(miles) || 0,
+                    price: parseInt(price) || 0,
+                    fuel,
+                    gearbox,
+                    body_type: "Sedan", // Simplified for now
+                    location: `${lan}, ${kommun} ${manualPlace ? '- ' + manualPlace : ''}`,
+                    description,
+                    images: uploadedImageUrls,
+                    image_color: null // Use images array primarily
+                })
+
+            if (error) {
+                alert('Kunde inte skapa annons: ' + error.message)
+                setLoading(false)
+            } else {
+                alert('Annons skapad!')
+                router.push('/ads')
+            }
+
+        } catch (error) {
+            console.error('Error in submission:', error)
+            alert('Något gick fel vid uppladdning.')
             setLoading(false)
-        } else {
-            alert('Annons skapad!')
-            router.push('/ads')
         }
     }
 
@@ -362,7 +411,7 @@ export default function CreateAdForm() {
                     borderRadius: '4px',
                     cursor: 'pointer'
                 }}>
-                    {adType === 'private' ? 'Publicera annons gratis' : 'Publicera företagsannons'}
+                    {loading ? 'Laddar upp...' : (adType === 'private' ? 'Publicera annons gratis' : 'Publicera företagsannons')}
                 </button>
 
             </form>
