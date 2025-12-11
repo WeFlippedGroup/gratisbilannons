@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: `${ad.brand} ${ad.title} (${ad.year}) - ${ad.price.toLocaleString()} kr`,
         description: `Köp ${ad.title} i ${ad.location}. ${ad.year} årsmodell, ${ad.miles} mil. ${ad.fuel}, ${ad.gearbox}. Pris: ${ad.price} kr.`,
         openGraph: {
-            title: `${ad.title} | GratisBilAnnons.se`,
+            title: `${ad.title} | gratisbilannons.se`,
             description: `Köp denna ${ad.brand} för ${ad.price} kr i ${ad.location}.`,
             images: [ad.image_color || ''], // Use db field name
         },
