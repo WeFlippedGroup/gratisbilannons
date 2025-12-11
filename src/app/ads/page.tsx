@@ -138,6 +138,7 @@ function AdsContent() {
                                     specs={`${ad.year} • ${ad.miles.toLocaleString().replace(',', ' ')} mil • ${ad.gearbox} • ${ad.fuel}`}
                                     location={ad.location}
                                     imageColor={ad.imageColor}
+                                    image={ad.images && ad.images.length > 0 ? ad.images[0] : null}
                                 />
                             ))}
                         </div>

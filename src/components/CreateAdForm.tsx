@@ -37,6 +37,7 @@ export default function CreateAdForm() {
     const [kommun, setKommun] = useState("")
     const [manualPlace, setManualPlace] = useState("")
     const [color, setColor] = useState("")
+    const [bodyType, setBodyType] = useState("")
     const [regNumber, setRegNumber] = useState("")
 
 
@@ -156,7 +157,7 @@ export default function CreateAdForm() {
                     price: parseInt(price) || 0,
                     fuel,
                     gearbox,
-                    body_type: "Sedan", // Simplified for now
+                    body_type: bodyType,
                     color,
                     reg_number: regNumber.toUpperCase(),
                     location: `${lan}, ${kommun} ${manualPlace ? '- ' + manualPlace : ''}`,
@@ -301,7 +302,7 @@ export default function CreateAdForm() {
                     </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: '24px' }}>
                     <div>
                         <label className="label">Bränsle</label>
                         <select className="input-reset" value={fuel} onChange={e => setFuel(e.target.value)}>
@@ -314,6 +315,13 @@ export default function CreateAdForm() {
                         <select className="input-reset" value={gearbox} onChange={e => setGearbox(e.target.value)}>
                             <option value="">Välj växellåda</option>
                             {specsData.Växellådor.map(g => <option key={g} value={g}>{g}</option>)}
+                        </select>
+                    </div>
+                    <div>
+                        <label className="label">Kaross</label>
+                        <select className="input-reset" value={bodyType} onChange={e => setBodyType(e.target.value)}>
+                            <option value="">Välj kaross</option>
+                            {specsData.Biltyper.map(b => <option key={b} value={b}>{b}</option>)}
                         </select>
                     </div>
                     <div>
