@@ -26,6 +26,16 @@ export default function FilterSidebar({ filters, setFilters }: FilterProps) {
         <aside style={{ width: '280px', flexShrink: 0, paddingRight: '32px', borderRight: '1px solid #e8e8e8', flexDirection: 'column', gap: '24px' }} className="desktop-filters">
             <h3 style={{ fontSize: '18px', fontWeight: 500 }}>Filtrera</h3>
 
+            {/* Seller Type */}
+            <div>
+                <label className="label">Säljare</label>
+                <select className="input-reset" value={filters.sellerType || ""} onChange={e => handleChange('sellerType', e.target.value)}>
+                    <option value="">Alla</option>
+                    <option value="private">Privat</option>
+                    <option value="dealer">Företag</option>
+                </select>
+            </div>
+
             {/* Brand */}
             <div>
                 <label className="label">Märke</label>

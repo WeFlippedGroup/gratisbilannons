@@ -1,8 +1,8 @@
-import { MOCK_ADS } from '@/data/mockAds'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import JsonLd from '@/components/JsonLd'
 import AdDetails from '@/components/AdDetails'
+import { supabase } from '@/lib/supabase'
 
 type Props = {
     params: Promise<{ id: string }>
@@ -11,7 +11,16 @@ type Props = {
 // Generate Dynamic Metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { id } = await params
-    const ad = MOCK_ADS.find(a => a.id === parseInt(id))
+
+    // Check if ID is numeric (mock/old) or UUID? 
+    // Actually our Schema defines ads.id as bigint, so it's a number.
+
+    // Fetch from Supabase
+    const { data: ad } = await supabase
+        .from('ads')
+        .select('*')
+        .eq('id', id)
+        .single()
 
     if (!ad) {
         return {
@@ -25,38 +34,43 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         openGraph: {
             title: `${ad.title} | GratisBilAnnons.se`,
             description: `Köp denna ${ad.brand} för ${ad.price} kr i ${ad.location}.`,
-            images: [ad.imageColor || ''], // In real app, this would be a URL
+            images: [ad.image_color || ''], // Use db field name
         },
     }
 }
 
 export default async function AdDetailsPage({ params }: Props) {
     const { id } = await params
-    const ad = MOCK_ADS.find(a => a.id === parseInt(id))
+
+    const { data: ad } = await supabase
+        .from('ads')
+        .select('*')
+        .eq('id', id)
+        .single()
 
     if (!ad) {
         return notFound()
     }
 
-    const images = ad.images || [ad.imageColor || '#f4f4f4']
+    const images = ad.images || [ad.image_color || '#f4f4f4']
 
-    // Structured Data for AI Search (schema.org/Vehicle)
+    // Structured Data
     const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'Vehicle',
         name: ad.title,
-        image: images, // Should be real URLs
+        image: images,
         description: ad.description,
         brand: {
             '@type': 'Brand',
             name: ad.brand,
         },
-        model: ad.title.replace(ad.brand, '').trim(), // Rough extraction
+        model: ad.model,
         vehicleModelDate: ad.year,
         mileageFromOdometer: {
             '@type': 'QuantitativeValue',
             value: ad.miles,
-            unitCode: 'KMT', // Kilometers
+            unitCode: 'KMT',
         },
         fuelType: ad.fuel,
         vehicleTransmission: ad.gearbox,
@@ -68,10 +82,22 @@ export default async function AdDetailsPage({ params }: Props) {
         },
     }
 
+    // Map DB fields to Component Props if necessary, or pass 'ad' (typing might need check)
+    // AdDetails expects 'Ad' type. Let's ensure database matches or we cast.
+    // Our Ad type in AdDetails.tsx: id: number, title: string...
+    // DB returns keys like 'body_type' (snake_case) vs 'bodyType' (camelCase).
+    // We need to normalize.
+
+    const normalizedAd = {
+        ...ad,
+        bodyType: ad.body_type, // Map snake_case to camelCase
+        imageColor: ad.image_color
+    }
+
     return (
         <>
             <JsonLd data={jsonLd} />
-            <AdDetails ad={ad} />
+            <AdDetails ad={normalizedAd} />
         </>
     )
 }

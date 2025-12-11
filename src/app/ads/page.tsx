@@ -5,10 +5,12 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import AdCard from '@/components/AdCard'
 import FilterSidebar from '@/components/FilterSidebar'
-import { MOCK_ADS } from '@/data/mockAds'
+import { supabase } from '@/lib/supabase'
 
 function AdsContent() {
     const searchParams = useSearchParams()
+    const [ads, setAds] = useState<any[]>([])
+    const [loading, setLoading] = useState(true)
 
     const [filters, setFilters] = useState({
         keyword: searchParams.get('q') || "",
@@ -20,8 +22,27 @@ function AdsContent() {
         fuel: searchParams.get('fuel') || "",
         gearbox: searchParams.get('gearbox') || "",
         bodyType: searchParams.get('bodyType') || "",
-        milesMax: searchParams.get('milesMax') || ""
+        milesMax: searchParams.get('milesMax') || "",
+        sellerType: searchParams.get('sellerType') || ""
     })
+
+    // Fetch Ads from Supabase
+    useEffect(() => {
+        const fetchAds = async () => {
+            // Fetch ads AND the related profile (to check is_dealer)
+            const { data, error } = await supabase
+                .from('ads')
+                .select('*, profiles(is_dealer)')
+                .order('created_at', { ascending: false })
+
+            if (data) {
+                setAds(data)
+            }
+            setLoading(false)
+        }
+
+        fetchAds()
+    }, [])
 
     // Update filters if URL params change
     useEffect(() => {
@@ -30,18 +51,30 @@ function AdsContent() {
             keyword: searchParams.get('q') || "",
             brand: searchParams.get('brand') || "",
             model: searchParams.get('model') || "",
-            priceMax: searchParams.get('priceMax') || prev.priceMax, // Persist manual filters if not in URL
+            priceMax: searchParams.get('priceMax') || prev.priceMax,
             yearMin: searchParams.get('yearMin') || prev.yearMin,
             yearMax: searchParams.get('yearMax') || prev.yearMax,
             fuel: searchParams.get('fuel') || prev.fuel,
             gearbox: searchParams.get('gearbox') || prev.gearbox,
             bodyType: searchParams.get('bodyType') || prev.bodyType,
             milesMax: searchParams.get('milesMax') || prev.milesMax,
+            sellerType: searchParams.get('sellerType') || prev.sellerType,
         }))
     }, [searchParams])
 
     // Filter Logic
-    const filteredAds = MOCK_ADS.filter(ad => {
+    const filteredAds = ads.filter(ad => {
+        // 1. Expiry Check (Exclude if expires_at is in the past)
+        if (ad.expires_at && new Date(ad.expires_at) < new Date()) return false
+
+        // 2. Seller Type Filter
+        if (filters.sellerType) {
+            // Check if profile exists and matches type
+            const isDealer = ad.profiles?.is_dealer
+            if (filters.sellerType === 'dealer' && !isDealer) return false
+            if (filters.sellerType === 'private' && isDealer) return false
+        }
+
         // Keyword Search (Case Insensitive)
         if (filters.keyword) {
             const q = filters.keyword.toLowerCase()
@@ -59,7 +92,7 @@ function AdsContent() {
         if (filters.yearMax && ad.year > Number(filters.yearMax)) return false
         if (filters.fuel && ad.fuel !== filters.fuel) return false
         if (filters.gearbox && ad.gearbox !== filters.gearbox) return false
-        if (filters.bodyType && ad.bodyType !== filters.bodyType) return false
+        if (filters.bodyType && ad.body_type !== filters.bodyType) return false // Note body_type from DB
         if (filters.milesMax && ad.miles > Number(filters.milesMax)) return false
         return true
     })
@@ -113,7 +146,7 @@ function AdsContent() {
                             <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>Inga bilar hittades</h3>
                             <p style={{ color: '#5c5e62' }}>Prova att justera dina filter.</p>
                             <button
-                                onClick={() => setFilters({ keyword: "", brand: "", model: "", priceMax: "", yearMin: "", yearMax: "", fuel: "", gearbox: "", bodyType: "", milesMax: "" })}
+                                onClick={() => setFilters({ keyword: "", brand: "", model: "", priceMax: "", yearMin: "", yearMax: "", fuel: "", gearbox: "", bodyType: "", milesMax: "", sellerType: "" })}
                                 style={{ marginTop: '16px', color: 'var(--accent-blue)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
                             >
                                 Rensa alla filter

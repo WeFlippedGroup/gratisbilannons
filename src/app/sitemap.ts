@@ -1,30 +1,46 @@
 import { MetadataRoute } from 'next'
-import { MOCK_ADS } from '@/data/mockAds'
+import { supabase } from '@/lib/supabase'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://gratisbilannons.se'
 
-    const ads = MOCK_ADS.map((ad) => ({
+    // Fetch all ads
+    const { data: ads } = await supabase
+        .from('ads')
+        .select('id, updated_at')
+
+    const adUrls = (ads || []).map((ad) => ({
         url: `${baseUrl}/ads/${ad.id}`,
-        lastModified: new Date(),
+        lastModified: ad.updated_at || new Date(),
         changeFrequency: 'daily' as const,
         priority: 0.8,
     }))
 
-    const routes = [
-        '',
-        '/ads',
-        '/create-ad',
-        '/om-oss',
-        '/villkor',
-        '/integritetspolicy',
-        '/cookiepolicy'
-    ].map((route) => ({
-        url: `${baseUrl}${route}`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: route === '' ? 1 : 0.5,
-    }))
-
-    return [...routes, ...ads]
+    return [
+        {
+            url: baseUrl,
+            lastModified: new Date(),
+            changeFrequency: 'daily',
+            priority: 1,
+        },
+        {
+            url: `${baseUrl}/ads`,
+            lastModified: new Date(),
+            changeFrequency: 'hourly',
+            priority: 1,
+        },
+        {
+            url: `${baseUrl}/om-oss`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.5,
+        },
+        {
+            url: `${baseUrl}/create-ad`,
+            lastModified: new Date(),
+            changeFrequency: 'monthly',
+            priority: 0.9,
+        },
+        ...adUrls,
+    ]
 }
