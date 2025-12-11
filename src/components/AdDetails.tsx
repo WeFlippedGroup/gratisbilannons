@@ -36,9 +36,10 @@ export default function AdDetails({ ad }: { ad: Ad }) {
                 {/* Left Column: Gallery & Description */}
                 <div>
                     {/* Main Image */}
+                    {/* Main Image */}
                     <div style={{
                         height: '400px',
-                        backgroundColor: images[activeImage],
+                        backgroundColor: '#f4f4f4',
                         borderRadius: '8px',
                         display: 'flex',
                         alignItems: 'center',
@@ -48,33 +49,53 @@ export default function AdDetails({ ad }: { ad: Ad }) {
                         overflow: 'hidden',
                         position: 'relative'
                     }}>
-                        {/* Simple Car Icon if no real image */}
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.3 }}>
-                            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
-                            <circle cx="7" cy="17" r="2" />
-                            <circle cx="17" cy="17" r="2" />
-                        </svg>
+                        {/* Check if current image is a URL or a color code */}
+                        {images[activeImage] && (images[activeImage].startsWith('http') || images[activeImage].startsWith('/')) ? (
+                            <img
+                                src={images[activeImage]}
+                                alt={`${ad.brand} ${ad.model}`}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                        ) : (
+                            /* Fallback to Color or Icon if no URL */
+                            <div style={{ width: '100%', height: '100%', backgroundColor: images[activeImage] || '#f4f4f4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ opacity: 0.3 }}>
+                                    <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2" />
+                                    <circle cx="7" cy="17" r="2" />
+                                    <circle cx="17" cy="17" r="2" />
+                                </svg>
+                            </div>
+                        )}
                     </div>
 
                     {/* Thumbnails */}
-                    <div style={{ display: 'flex', gap: '12px', marginBottom: '32px', overflowX: 'auto', paddingBottom: '4px' }}>
-                        {images.map((img, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => setActiveImage(idx)}
-                                style={{
-                                    width: '80px',
-                                    height: '60px',
-                                    backgroundColor: img,
-                                    border: activeImage === idx ? '2px solid #3e6ae1' : '1px solid transparent',
-                                    borderRadius: '4px',
-                                    cursor: 'pointer',
-                                    padding: 0,
-                                    flexShrink: 0
-                                }}
-                            />
-                        ))}
-                    </div>
+                    {images.length > 1 && (
+                        <div style={{ display: 'flex', gap: '12px', marginBottom: '32px', overflowX: 'auto', paddingBottom: '4px' }}>
+                            {images.map((img, idx) => (
+                                <button
+                                    key={idx}
+                                    onClick={() => setActiveImage(idx)}
+                                    style={{
+                                        width: '80px',
+                                        height: '60px',
+                                        backgroundColor: '#f4f4f4',
+                                        border: activeImage === idx ? '2px solid #3e6ae1' : '1px solid transparent',
+                                        borderRadius: '4px',
+                                        cursor: 'pointer',
+                                        padding: 0,
+                                        flexShrink: 0,
+                                        overflow: 'hidden'
+                                    }}
+                                >
+                                    {(img.startsWith('http') || img.startsWith('/')) ? (
+                                        <img src={img} alt="Thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                    ) : (
+                                        <div style={{ width: '100%', height: '100%', backgroundColor: img }} />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+                    )}
 
                     <div>
                         <h2 style={{ fontSize: '24px', fontWeight: 500, marginBottom: '16px', borderBottom: '1px solid #e8e8e8', paddingBottom: '16px' }}>Beskrivning</h2>
