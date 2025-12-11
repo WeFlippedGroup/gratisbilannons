@@ -44,7 +44,7 @@ export default async function AdDetailsPage({ params }: Props) {
 
     const { data: ad } = await supabase
         .from('ads')
-        .select('*')
+        .select('*, profiles(full_name, phone, show_phone, nickname, email)')
         .eq('id', id)
         .single()
 
@@ -98,6 +98,7 @@ export default async function AdDetailsPage({ params }: Props) {
             name: ad.profiles?.full_name || ad.profiles?.nickname || 'Säljare',
             phone: ad.profiles?.phone,
             showPhone: ad.profiles?.show_phone,
+            email: ad.profiles?.email,
             id: ad.profiles?.id
         }
     }

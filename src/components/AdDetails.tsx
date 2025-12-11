@@ -24,6 +24,7 @@ type Ad = {
         name: string
         phone?: string
         showPhone?: boolean
+        email?: string
         id?: string
     }
 }
@@ -158,48 +159,70 @@ export default function AdDetails({ ad }: { ad: Ad }) {
                             </div>
                         </div>
 
-                        <button style={{
-                            width: '100%',
-                            padding: '14px',
-                            backgroundColor: showPhone ? '#21c55e' : '#171a20', // Green if showing number, Black otherwise
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '4px',
-                            fontSize: '16px',
-                            fontWeight: 500,
-                            cursor: 'pointer',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '8px',
-                            transition: 'all 0.2s'
-                        }}
-                            onClick={() => {
-                                if (ad.seller?.showPhone && ad.seller?.phone) {
-                                    setShowPhone(!showPhone)
-                                } else {
-                                    alert('Meddelandefunktion kommer snart! 💬')
-                                }
-                            }}
-                            onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
-                            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
-                        >
-                            {showPhone ? (
-                                <>
-                                    <span>📞 {ad.seller?.phone}</span>
-                                </>
-                            ) : (
-                                <>
-                                    {ad.seller?.showPhone && ad.seller.phone ? 'Visa telefonnummer' : 'Kontakta säljaren'}
-                                </>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {/* Email Button */}
+                            {ad.seller?.email && (
+                                <a
+                                    href={`mailto:${ad.seller.email}?subject=Intresse för ${ad.brand} ${ad.model}`}
+                                    style={{
+                                        width: '100%',
+                                        padding: '14px',
+                                        backgroundColor: '#171a20',
+                                        color: 'white',
+                                        border: 'none',
+                                        borderRadius: '4px',
+                                        fontSize: '16px',
+                                        fontWeight: 500,
+                                        cursor: 'pointer',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '8px',
+                                        textDecoration: 'none',
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    ✉️ Maila säljaren
+                                </a>
                             )}
-                        </button>
 
-                        {!showPhone && (
-                            <p style={{ marginTop: '16px', fontSize: '12px', color: '#5c5e62', textAlign: 'center' }}>
-                                {ad.seller?.showPhone ? 'Klicka för att se nummer' : 'Säljaren kontaktas via meddelande (WIP).'}
-                            </p>
-                        )}
+                            {/* Phone Button */}
+                            <button style={{
+                                width: '100%',
+                                padding: '14px',
+                                backgroundColor: showPhone ? '#21c55e' : '#f4f4f4',
+                                color: showPhone ? 'white' : '#171a20',
+                                border: 'none',
+                                borderRadius: '4px',
+                                fontSize: '16px',
+                                fontWeight: 500,
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px',
+                                transition: 'all 0.2s'
+                            }}
+                                onClick={() => {
+                                    if (ad.seller?.showPhone && ad.seller?.phone) {
+                                        setShowPhone(!showPhone)
+                                    } else {
+                                        // Fallback if click but hidden or missing, shouldn't really happen if filtered properly logic-wise 
+                                        // or disabled. But for simplicity:
+                                        alert('Säljaren har inte angett telefonnummer.')
+                                    }
+                                }}
+                                disabled={!ad.seller?.showPhone || !ad.seller?.phone}
+                            >
+                                {showPhone ? (
+                                    <span>📞 {ad.seller?.phone}</span>
+                                ) : (
+                                    <>
+                                        {ad.seller?.showPhone && ad.seller?.phone ? 'Visa telefonnummer' : 'Inget telefonnummer angivet'}
+                                    </>
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </aside>
             </div>
