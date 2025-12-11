@@ -1,15 +1,22 @@
 "use client"
 
 import { useState, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
+import Image from 'next/image' // Added as per instruction, though not directly used by the provided handleSubmit
 import locationsData from '@/data/locations.json'
 import carsData from '@/data/cars.json'
 import specsData from '@/data/specs.json'
+import { useAuth } from '@/context/AuthContext'
+import { supabase } from '@/lib/supabase'
 
 type AdType = 'private' | 'dealer'
 // @ts-ignore
 type Locations = typeof locationsData.Sverige
 
 export default function CreateAdForm() {
+    const router = useRouter()
+    const { user } = useAuth()
+    const [loading, setLoading] = useState(false)
     const [adType, setAdType] = useState<AdType>('private')
 
     // Form State
@@ -78,6 +85,47 @@ export default function CreateAdForm() {
         return locationsData.Sverige[lan as keyof Locations]?.sort() || []
     }, [lan])
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+
+        if (!user) {
+            alert('Du måste vara inloggad.')
+            setLoading(false)
+            return
+        }
+
+        const finalModel = isManualModel || !model ? manualModelInput : model
+
+        // Insert into Supabase
+        const { error } = await supabase
+            .from('ads')
+            .insert({
+                user_id: user.id,
+                title: `${brand} ${finalModel}`,
+                brand,
+                model: finalModel,
+                year: parseInt(year) || 0,
+                miles: parseInt(miles) || 0,
+                price: parseInt(price) || 0,
+                fuel,
+                gearbox,
+                body_type: "Sedan", // Simplified for now
+                location: `${lan}, ${kommun}`,
+                description,
+                images: [], // TODO: Implement real image upload
+                image_color: '#3e6ae1' // Placeholder
+            })
+
+        if (error) {
+            alert('Kunde inte skapa annons: ' + error.message)
+            setLoading(false)
+        } else {
+            alert('Annons skapad!')
+            router.push('/ads')
+        }
+    }
+
     return (
         <div className="glass-panel" style={{ padding: '64px', maxWidth: '800px', margin: '0 auto', boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}>
 
@@ -128,7 +176,7 @@ export default function CreateAdForm() {
                 {adType === 'private' ? 'Sälj din bil gratis.' : 'Lägg upp företagsannons.'}
             </h2>
 
-            <form style={{ display: 'grid', gap: '24px' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '24px' }}>
 
                 {/* Dealer Details */}
                 {adType === 'dealer' && (
