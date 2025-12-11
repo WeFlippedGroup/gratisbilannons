@@ -36,10 +36,8 @@ export default function CreateAdForm() {
     const [lan, setLan] = useState("")
     const [kommun, setKommun] = useState("")
     const [manualPlace, setManualPlace] = useState("")
-    const [lan, setLan] = useState("")
-    const [kommun, setKommun] = useState("")
-    const [manualPlace, setManualPlace] = useState("")
     const [color, setColor] = useState("")
+
 
     // Dealer specific
     const [companyName, setCompanyName] = useState("")
@@ -311,14 +309,8 @@ export default function CreateAdForm() {
                             {specsData.Färger.map(c => <option key={c} value={c}>{c}</option>)}
                         </select>
                     </div>
-                    <div>
-                        <label className="label">Färg</label>
-                        <select className="input-reset" value={color} onChange={e => setColor(e.target.value)}>
-                            <option value="">Välj färg</option>
-                            {specsData.Färger.map(c => <option key={c} value={c}>{c}</option>)}
-                        </select>
-                    </div>
                 </div>
+
 
                 {/* Images Section */}
                 <div>
