@@ -4,7 +4,7 @@ import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import AdCard from '@/components/AdCard'
-import FilterSidebar from '@/components/FilterSidebar'
+import FilterBar from '@/components/FilterBar'
 import { supabase } from '@/lib/supabase'
 
 function AdsContent() {
@@ -108,22 +108,15 @@ function AdsContent() {
                 </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '48px', alignItems: 'flex-start' }}>
-                <FilterSidebar filters={filters} setFilters={setFilters} />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <FilterBar filters={filters} setFilters={setFilters} />
 
                 <div style={{ flex: 1 }}>
                     {filters.keyword && (
-                        <div style={{ marginBottom: '24px', padding: '16px', background: '#f4f4f4', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <div style={{ marginBottom: '24px', padding: '0 8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <span style={{ fontSize: '14px', color: '#171a20' }}>
-                                Visar resultat för: <strong>&quot;{filters.keyword}&quot;</strong>
+                                Träffar för: <strong>&quot;{filters.keyword}&quot;</strong>
                             </span>
-                            <button
-                                onClick={() => setFilters(prev => ({ ...prev, keyword: "" }))}
-                                style={{ border: 'none', background: 'none', color: '#5c5e62', cursor: 'pointer', fontSize: '18px' }}
-                                title="Rensa sökning"
-                            >
-                                ×
-                            </button>
                         </div>
                     )}
 
