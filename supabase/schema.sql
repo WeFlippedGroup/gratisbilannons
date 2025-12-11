@@ -44,6 +44,7 @@ create table public.ads (
   fuel text not null,
   gearbox text not null,
   body_type text,
+  color text,
   location text not null,
   image_color text, -- Temporary until real images
   images text[],

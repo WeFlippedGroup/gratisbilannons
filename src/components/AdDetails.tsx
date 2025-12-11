@@ -14,6 +14,7 @@ type Ad = {
     location: string
     brand: string
     bodyType?: string
+    color?: string
     description?: string
     imageColor?: string
     images?: string[]
@@ -106,6 +107,12 @@ export default function AdDetails({ ad }: { ad: Ad }) {
                                 <span className="label">Bränsle</span>
                                 <span className="value">{ad.fuel}</span>
                             </div>
+                            {ad.color && (
+                                <div className="spec-item">
+                                    <span className="label">Färg</span>
+                                    <span className="value">{ad.color}</span>
+                                </div>
+                            )}
                             {ad.bodyType && (
                                 <div className="spec-item">
                                     <span className="label">Kaross</span>
