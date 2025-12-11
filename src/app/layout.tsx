@@ -5,6 +5,7 @@ import { AuthProvider } from '@/context/AuthContext'
 import AuthModal from '@/components/AuthModal'
 import FooterWrapper from '@/components/FooterWrapper'
 import CookieBanner from '@/components/CookieBanner'
+import Header from '@/components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -38,6 +39,7 @@ export default function RootLayout({
     <html lang="sv">
       <body className={inter.className} style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <AuthProvider>
+          <Header />
           {children}
           <FooterWrapper />
           <AuthModal />

@@ -20,10 +20,17 @@ type Ad = {
     imageColor?: string
     images?: string[]
     bodyType?: string
+    seller?: {
+        name: string
+        phone?: string
+        showPhone?: boolean
+        id?: string
+    }
 }
 
 export default function AdDetails({ ad }: { ad: Ad }) {
     const [activeImage, setActiveImage] = useState(0)
+    const [showPhone, setShowPhone] = useState(false)
     const images = ad.images || [ad.imageColor || '#f4f4f4']
 
     return (
@@ -154,23 +161,45 @@ export default function AdDetails({ ad }: { ad: Ad }) {
                         <button style={{
                             width: '100%',
                             padding: '14px',
-                            backgroundColor: '#171a20', // Updated to Black
+                            backgroundColor: showPhone ? '#21c55e' : '#171a20', // Green if showing number, Black otherwise
                             color: 'white',
                             border: 'none',
                             borderRadius: '4px',
                             fontSize: '16px',
                             fontWeight: 500,
                             cursor: 'pointer',
-                            transition: 'opacity 0.2s'
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '8px',
+                            transition: 'all 0.2s'
                         }}
+                            onClick={() => {
+                                if (ad.seller?.showPhone && ad.seller?.phone) {
+                                    setShowPhone(!showPhone)
+                                } else {
+                                    alert('Meddelandefunktion kommer snart! 💬')
+                                }
+                            }}
                             onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
                             onMouseLeave={e => e.currentTarget.style.opacity = '1'}
                         >
-                            Kontakta säljaren
+                            {showPhone ? (
+                                <>
+                                    <span>📞 {ad.seller?.phone}</span>
+                                </>
+                            ) : (
+                                <>
+                                    {ad.seller?.showPhone && ad.seller.phone ? 'Visa telefonnummer' : 'Kontakta säljaren'}
+                                </>
+                            )}
                         </button>
-                        <p style={{ marginTop: '16px', fontSize: '12px', color: '#5c5e62', textAlign: 'center' }}>
-                            Säljaren kontaktas via meddelande.
-                        </p>
+
+                        {!showPhone && (
+                            <p style={{ marginTop: '16px', fontSize: '12px', color: '#5c5e62', textAlign: 'center' }}>
+                                {ad.seller?.showPhone ? 'Klicka för att se nummer' : 'Säljaren kontaktas via meddelande (WIP).'}
+                            </p>
+                        )}
                     </div>
                 </aside>
             </div>

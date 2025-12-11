@@ -93,7 +93,13 @@ export default async function AdDetailsPage({ params }: Props) {
         bodyType: ad.body_type, // Map snake_case to camelCase
         color: ad.color,
         regNumber: ad.reg_number,
-        imageColor: ad.image_color
+        imageColor: ad.image_color,
+        seller: {
+            name: ad.profiles?.full_name || ad.profiles?.nickname || 'Säljare',
+            phone: ad.profiles?.phone,
+            showPhone: ad.profiles?.show_phone,
+            id: ad.profiles?.id
+        }
     }
 
     return (
