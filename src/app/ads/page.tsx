@@ -19,7 +19,8 @@ function AdsContent() {
         yearMax: searchParams.get('yearMax') || "",
         fuel: searchParams.get('fuel') || "",
         gearbox: searchParams.get('gearbox') || "",
-        bodyType: searchParams.get('bodyType') || ""
+        bodyType: searchParams.get('bodyType') || "",
+        milesMax: searchParams.get('milesMax') || ""
     })
 
     // Update filters if URL params change
@@ -35,6 +36,7 @@ function AdsContent() {
             fuel: searchParams.get('fuel') || prev.fuel,
             gearbox: searchParams.get('gearbox') || prev.gearbox,
             bodyType: searchParams.get('bodyType') || prev.bodyType,
+            milesMax: searchParams.get('milesMax') || prev.milesMax,
         }))
     }, [searchParams])
 
@@ -58,6 +60,7 @@ function AdsContent() {
         if (filters.fuel && ad.fuel !== filters.fuel) return false
         if (filters.gearbox && ad.gearbox !== filters.gearbox) return false
         if (filters.bodyType && ad.bodyType !== filters.bodyType) return false
+        if (filters.milesMax && ad.miles > Number(filters.milesMax)) return false
         return true
     })
 
@@ -110,7 +113,7 @@ function AdsContent() {
                             <h3 style={{ fontSize: '18px', marginBottom: '8px' }}>Inga bilar hittades</h3>
                             <p style={{ color: '#5c5e62' }}>Prova att justera dina filter.</p>
                             <button
-                                onClick={() => setFilters({ keyword: "", brand: "", model: "", priceMax: "", yearMin: "", yearMax: "", fuel: "", gearbox: "", bodyType: "" })}
+                                onClick={() => setFilters({ keyword: "", brand: "", model: "", priceMax: "", yearMin: "", yearMax: "", fuel: "", gearbox: "", bodyType: "", milesMax: "" })}
                                 style={{ marginTop: '16px', color: 'var(--accent-blue)', background: 'none', border: 'none', cursor: 'pointer', textDecoration: 'underline' }}
                             >
                                 Rensa alla filter

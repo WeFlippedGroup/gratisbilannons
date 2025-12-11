@@ -67,6 +67,20 @@ export default function FilterSidebar({ filters, setFilters }: FilterProps) {
                 </select>
             </div>
 
+            {/* Max Miles */}
+            <div>
+                <label className="label">Max Miltal</label>
+                <select className="input-reset" value={filters.milesMax} onChange={e => handleChange('milesMax', e.target.value)}>
+                    <option value="">Alla miltal</option>
+                    <option value="1000">1 000 mil</option>
+                    <option value="3000">3 000 mil</option>
+                    <option value="5000">5 000 mil</option>
+                    <option value="10000">10 000 mil</option>
+                    <option value="15000">15 000 mil</option>
+                    <option value="20000">20 000 mil</option>
+                </select>
+            </div>
+
             {/* Year Range */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div>
