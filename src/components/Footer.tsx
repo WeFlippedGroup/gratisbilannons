@@ -22,7 +22,7 @@ export default function Footer() {
 
                 {/* Copyright */}
                 <div style={{ textAlign: 'center', lineHeight: '1.6' }}>
-                    <p>&copy; 2025 GratisBilAnnons.se</p>
+                    <p>&copy; 2025 gratisbilannons.se</p>
                     <p style={{ marginTop: '8px' }}>
                         Powered by <a href="https://weflippedgroup.com" target="_blank" rel="noopener noreferrer" style={{ color: '#3e6ae1', fontWeight: 500 }}>WeFlipped Group</a>
                     </p>
