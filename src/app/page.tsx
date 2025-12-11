@@ -24,8 +24,7 @@ export default function Home() {
       <section className="hero-section" style={{ backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.7) 20%, rgba(255,255,255,0) 40%), url(/hero-car.png)', backgroundPosition: 'center 60%' }}>
 
         <div style={{ textAlign: 'center', zIndex: 10 }}>
-          <h1 className="hero-title">GratisBilAnnons.se</h1>
-          <p className="hero-subtitle">Den bästa plattformen. Helt gratis.</p>
+          <h1 className="hero-title">Den bästa plattformen.<br />Helt gratis.</h1>
         </div>
 
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
