@@ -31,7 +31,9 @@ export default function Header() {
             color: '#171a20' // Black text for clean look (ensure background supports it or use mix-blend-mode)
         }}>
             {/* Logo */}
-            <Link href="/" style={{ fontSize: '18px', fontWeight: 600, letterSpacing: '1px', textDecoration: 'none', color: 'inherit' }}>
+            {/* Logo */}
+            <Link href="/" style={{ fontSize: '18px', fontWeight: 600, letterSpacing: '1px', textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <img src="/logo.png" alt="Logo" style={{ height: '24px', width: 'auto' }} />
                 GRATISBILANNONS
             </Link>
 
