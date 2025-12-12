@@ -36,14 +36,22 @@ export default function AuthModal() {
 
         try {
             if (view === 'signup') {
-                const { error } = await supabase.auth.signUp({
+                const { data, error } = await supabase.auth.signUp({
                     email,
                     password
                 })
                 if (error) throw error
-                // On success, maybe show "check email" or auto login if disabled confirm
-                alert('Konto skapat! Kontrollera din e-post.')
-                setView('login')
+
+                // If session exists, auto-login (Verify OFF)
+                if (data.session) {
+                    alert('Konto skapat! Du är nu inloggad.')
+                    closeModal()
+                    router.refresh()
+                } else {
+                    // Start Verify ON
+                    alert('Konto skapat! Kontrollera din e-post för verifieringslänk.')
+                    setView('login')
+                }
             } else {
                 const { error } = await supabase.auth.signInWithPassword({
                     email,
