@@ -5,6 +5,7 @@ import { AuthProvider } from '@/context/AuthContext'
 import AuthModal from '@/components/AuthModal'
 import FooterWrapper from '@/components/FooterWrapper'
 import CookieBanner from '@/components/CookieBanner'
+import ActivationCTA from '@/components/ActivationCTA'
 import Header from '@/components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -43,6 +44,7 @@ export default function RootLayout({
           {children}
           <FooterWrapper />
           <AuthModal />
+          <ActivationCTA />
           <CookieBanner />
         </AuthProvider>
       </body>
